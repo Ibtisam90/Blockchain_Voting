@@ -2,18 +2,22 @@
 import React, { useState, useRef , useEffect} from 'react';
 import axios from 'axios';
 import '../../index.css';
-import { useHistory } from 'react-router-dom';
+
+import contractAddress from "../../contracts/contract-address.json"; // address generated from the deploy script
+import CMArtifact from "../../contracts/CM.json"; // artifacts generated from the deploy script
+import { ethers } from "ethers";
 
 
-
-const RegisterVoter = () => {
-    const history = useHistory();
+const RegisterCandidate = () => {
   const [isFaceRegistered, setIsFaceRegistered] = useState(false);
   const [firstName, setFirstName] = useState('');
+  const [party, setParty] = useState('');
+  const [description, setDescription] = useState('');
   const [lastName, setLastName] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const videoRef = useRef(null);
   const [metamaskAccount, setMetaAccount] = useState(null);
+  const [election, setElection] = useState(null);
 
   const startVideo = () => {
     navigator.mediaDevices
@@ -27,6 +31,7 @@ const RegisterVoter = () => {
   };
 
     const loginMetaMask = ( ) => {
+
     
         // Check if Metamask is installed and injected
         if (typeof window.ethereum !== 'undefined') {
@@ -41,7 +46,14 @@ const RegisterVoter = () => {
                 // console.log('Metamask account address:', accountAddress);
                 setMetaAccount(accountAddress);
                 // Perform additional actions or API requests using the account address
-                // ...
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+                    const electionC = new ethers.Contract(
+                        contractAddress.CM,
+                        CMArtifact.abi,
+                        provider.getSigner(0)
+                    );
+                    setElection(electionC);
         
             })
             .catch((error) => {
@@ -64,7 +76,7 @@ const registerFace = async () => {
         return;
     } 
 
- else if (!firstName || !lastName) {
+ else if (!firstName || !lastName || !party ||!description) {
     alert('Please fill in all the fields');
     return;
   }
@@ -88,17 +100,27 @@ const registerFace = async () => {
     const imageData = canvas.toDataURL('image/jpeg');
 
     try {
-      const response = await axios.post('http://localhost:8000/registerFace', {
+      const response = await axios.post('http://localhost:8000/registerCandFace', {
         imageData,
         firstName,
         lastName,
         metamaskAccount,
+        party,
+        description
       });
       const { success } = response.data;
 
       if (success) {
         setIsFaceRegistered(true);
         console.log('Face registered successfully');
+
+        // const transaction = await election.addCandidate(firstName, description, party);
+
+        // const receipt = await transaction.wait();
+        // console.log(transaction);
+        // window.location.assign('/');
+
+
       } else {
         console.log('Face registration failed');
       }
@@ -131,20 +153,22 @@ const handleLogin = async () => {
     const imageData = canvas.toDataURL('image/jpeg');
 
     try {
-      const response = await axios.post('http://localhost:8000/recognizeFace', {
+      const response = await axios.post('http://localhost:8000/recognizeCandFace', {
         imageData,
         metamaskAccount,
       });
-      const { success, message, voter } = response.data;
-      delete voter.facialBiometricData;
+      const { success, message, candidate } = response.data;
+      delete candidate.facialBiometricData;
+    //   console.log("Candidate-Data: ",candidate)
 
       if (success) {
         alert('Login Successful');
         console.log('Login successful');
-        sessionStorage.setItem('userDetails', JSON.stringify(voter));
+        sessionStorage.setItem('userDetails', JSON.stringify(candidate));
         window.location.assign(`/vote`);
       } else {
-        console.log('Login failed');
+        alert('Login failed, ', message);
+        console.log('Login failed', response.data);
       }
     } catch (error) {
       console.error('Error during face recognition:', error);
@@ -153,7 +177,7 @@ const handleLogin = async () => {
 
   return (
     <div className="container">
-      <h1 style={{marginLeft:"-3%"}}>Face Registration</h1>
+      <h1 style={{marginLeft:"-3%"}}>Candidate Registration</h1>
       <div className="form">
         <div className="form-group">
           <label htmlFor="firstName">First Name:</label>
@@ -175,6 +199,28 @@ const handleLogin = async () => {
             placeholder="Enter your last name"
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="party">Party Affiliation</label>
+          <input
+            type="text"
+            id="party"
+            value={party}
+            onChange={(e) => setParty(e.target.value)}
+            placeholder="Enter your Party Affiliation"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            id="party"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Tell something about yourself"
+          />
+        </div>
+
         <div className="form-group">
           <label htmlFor="accountNumber">Account Address:</label>
           <input
@@ -222,4 +268,4 @@ const handleLogin = async () => {
 };
 
 
-  export default RegisterVoter;
+  export default RegisterCandidate;

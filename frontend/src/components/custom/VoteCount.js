@@ -5,6 +5,8 @@ import contractAddress from "../../contracts/contract-address.json"; // address 
 import CMArtifact from "../../contracts/CM.json"; // artifacts generated from the deploy script
 import { ethers } from "ethers";
 
+// import { Bar } from 'react-chartjs-2';
+
 
 // const connectWallet = async () => {
   
@@ -82,10 +84,10 @@ const VoteCount = ({ match }) => {
           election_id: parseInt(retCat[4])
         };
         
-        if (candidate.election_id === parseInt(match.params.id)) {
-          console.log("TRUEEE");
+        // if (candidate.election_id === parseInt(match.params.id)) {
+          
           setCandidates((prevCandidates) => [...prevCandidates, candidate]);
-        }
+        // }
       }
       // console.log("Candidates:  ",candidates);
     } else {
@@ -111,6 +113,25 @@ const VoteCount = ({ match }) => {
   //     });
   // };
 
+  const getCandidateData = () => {
+    const candidateNames = candidates.map((candidate) => candidate.name);
+    const voteCounts = candidates.map((candidate) => candidate.voteCount);
+    return {
+      labels: candidateNames,
+      datasets: [
+        {
+          label: 'Votes',
+          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          hoverBackgroundColor: 'rgba(75, 192, 192, 0.8)',
+          hoverBorderColor: 'rgba(75, 192, 192, 1)',
+          data: voteCounts,
+        },
+      ],
+    };
+  };
+
   return (
     <div className="container">
       <ul className="collection">
@@ -134,6 +155,45 @@ const VoteCount = ({ match }) => {
       </ul>
     </div>
   );
+
+  // return (
+  //   <div className="container">
+  //     <h3 className="title">Candidates</h3>
+  //     <div className="chart-container">
+  //       <Bar
+  //         data={getCandidateData()}
+  //         options={{
+  //           responsive: true,
+  //           maintainAspectRatio: false,
+  //         }}
+  //       />
+  //     </div>
+  //     <ul className="collection">
+  //       {candidates.map((candidate) => (
+  //         <div className="contact" key={candidate.id}>
+  //           <li className="collection-item avatar">
+  //             <i className="material-icons circle blue darken-2">ballot</i>
+  //             <div>
+  //               <p className="candidate-name">{candidate.name}</p>
+  //               <p className="candidate-details">{candidate.details}</p>
+  //               <p className="candidate-voteCount">
+  //                 Votes: <span>{candidate.voteCount}</span>
+  //               </p>
+  //             </div>
+  //             <button
+  //               id={candidate.id}
+  //               onClick={handleInputChange}
+  //               type="button"
+  //               className="waves-effect waves-light btn blue darken-2"
+  //             >
+  //               Vote
+  //             </button>
+  //           </li>
+  //         </div>
+  //       ))}
+  //     </ul>
+  //   </div>
+  // );
 };
 
 export default VoteCount;

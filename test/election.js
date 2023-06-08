@@ -35,7 +35,7 @@ describe("Election", function (accounts) {
 
   beforeEach(async function () {
     election = await ethers.getContractFactory("Election");
-    electionInstance = await election.deploy("0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266");
+    electionInstance = await election.deploy("0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", 300);
   });
 
   it("Start with zero candidates", async function () {
@@ -43,9 +43,28 @@ describe("Election", function (accounts) {
     expect(count.toNumber()).to.equal(0);
   });
 
+  it("Should return false", async function () {
+    const isVoted = await electionInstance.hasVoted("0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc");
+    console.log("isVoted: ", isVoted)
+    expect(isVoted).to.equal(false);
+  });
+
   it("Adding a condidate", async function () {
    
-    await electionInstance.addCandidate("ibti","vote for me","2");
+    await electionInstance.addCandidate("ibti","vote for me","Ind","0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc");
+    const countR = await electionInstance.candidatesCount();
+    const count = countR.toNumber();
+    console.log("num of candidates: ", count)
+    const candDet = await electionInstance.candidates(count)
+    console.log("candidate details: ", candDet);
+    expect(await count).to.equal(1);
+  });
+
+  
+  it("Adding a dubplicate condidate", async function () {
+   
+    await electionInstance.addCandidate("ibti","vote for me","Ind","0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc");
+    await electionInstance.addCandidate("ibjad","vote for me","Ind","0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc");
     const countR = await electionInstance.candidatesCount();
     const count = countR.toNumber();
     console.log("num of candidates: ", count)

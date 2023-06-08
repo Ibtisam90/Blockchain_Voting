@@ -14,32 +14,44 @@ class Navbar extends Component {
     }
     render(){
 
-        if(this.state.location === "/" || this.state.location === "/choose"  || this.state.location === "/vote"  || this.state.location === "/login"){
-            return ( 
-                <nav className="nav-wrapper black darken-2">
-                    <div className="container">
-                        <a className="brand-logo">
-                            E-Election
-                        </a>
-                    </div>
-                </nav>
-            )
-        }else{
-            return(
-                <nav className="nav-wrapper black darken-2">
-                    <div className="container">
-                        <a className="brand-logo">
-                            E-Election
-                        </a>
-                        <ul className="right">
-                            <li><NavLink to="/">Home</NavLink></li>
-                            <li><NavLink to="/newelection">New Election</NavLink></li>
-                            <li><NavLink to="/elections">Elections</NavLink></li>
-                        </ul>
-                    </div>
-                </nav>
-            )
-        }
+        if (
+            this.state.location === "/" ||
+            this.state.location === "/choose" ||
+            this.state.location === "/vote" ||
+            this.state.location === "/login"
+          ) {
+            return (
+              <nav className="nav-wrapper black darken-2">
+                <div className="container">
+                  <a href="/" className="brand-logo">
+                    Online Voting
+                  </a>
+                </div>
+              </nav>
+            );
+          } else {
+            return (
+              <nav className="nav-wrapper black darken-2">
+                <div className="container">
+                  <a href="/" className="brand-logo">
+                  Online Voting
+                  </a>
+                  <ul className="right">
+                    {/* <li>
+                      <a href="/">Home</a>
+                    </li>
+                    <li>
+                      <a href="/newelection">New Election</a>
+                    </li>
+                    <li>
+                      <a href="/elections">Elections</a>
+                    </li> */}
+                  </ul>
+                </div>
+              </nav>
+            );
+          }
+          
 
         
     }

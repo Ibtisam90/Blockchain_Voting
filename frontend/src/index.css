@@ -8,6 +8,11 @@ body {
   background-color: #2b4c54;
 }
 
+.prompt {
+  font-size: 24px; /* Adjust the font size as needed */
+  font-weight: bold; /* Add font weight for emphasis */
+  margin-bottom: 20px; /* Add margin for spacing */
+}
 
 
 code {
@@ -24,6 +29,41 @@ code {
   margin: 0 auto;
 
 }
+
+.contact {
+  width: 500px; /* Set the desired width */
+  /* Add other styling properties as needed */
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image {
+  width: 200px; 
+  height: auto;
+  margin-right: 10px; 
+  vertical-align: middle; 
+  border-radius: 10%;
+}
+
+
+
+
+.contact p {
+  margin: 0;
+}
+
+.contact b {
+  font-size: 18px;
+}
+
+.contact p:last-child {
+  margin-bottom: 10px;
+}
+
+
 
 h1 {
   font-size: 24px;
@@ -48,10 +88,13 @@ h1 {
   margin-bottom: 10px;
 }
 
-label {
-  font-weight: bold;
-  font-size: 14px;
+.label {
+  font-size: 20px; /* Adjust the font size as needed */
+  font-weight: bold; /* Add font weight for emphasis */
+  text-transform: uppercase; /* Convert text to uppercase */
+  margin-left: 10px; /* Add margin for spacing */
 }
+
 
 input {
   width: 100%;
@@ -72,7 +115,6 @@ input {
 }
 
 button {
-  flex: 1;
   padding: 10px 16px;
   background-color: #007bff;
   color: #fff;
@@ -80,9 +122,14 @@ button {
   border-radius: 3px;
   font-size: 14px;
   cursor: pointer;
-  margin-right: 10px;
-  text-align: center; /* Align the content to the left */
+  text-align: center;
 }
+
+button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 video {
   width: 100%;
@@ -92,6 +139,12 @@ video {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
+
+.collection-item {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 
 p.success-message {
   margin-top: 10px;

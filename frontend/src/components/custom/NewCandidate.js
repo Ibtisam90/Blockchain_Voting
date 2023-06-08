@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
+import axios from 'axios';
 
 // import Election from '../../../artifacts/contracts/Election.sol/Election.json';
 
@@ -15,10 +16,26 @@ function NewCandidate(props) {
   const [candidateDetails, setCandidateDetails] = useState('');
   const [id, setId] = useState('');
 
+  const [candidates, setCandidates] = useState([]);
+
   useEffect(() => {
    loadWeb3();
   
   }, []);
+
+  
+  useEffect(() => {
+    fetchCandidates();
+  }, []);
+
+  const fetchCandidates = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/candList');
+      setCandidates(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   async function loadWeb3() {
     if (window.ethereum) {

@@ -16,7 +16,7 @@ async function main() {
   );
 
   const CM = await ethers.getContractFactory("Election");
-  const cm = await CM.deploy(deployer.address);
+  const cm = await CM.deploy(deployer.address, 30);
   await cm.deployed();
   saveFrontendFiles(cm);
 
