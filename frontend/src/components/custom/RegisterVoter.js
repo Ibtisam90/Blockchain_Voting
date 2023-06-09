@@ -220,9 +220,7 @@
 //     </div>
 //   );
 // };
-
-
-//   export default RegisterVoter;
+//fhg
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -368,7 +366,14 @@ const RegisterVoter = () => {
     <>
       <main style={{ overflow: 'hidden' }}>
         <section className='absolute w-full h-full'>
-          <div className='absolute top-0 w-full h-full bg-gray-900'></div>
+          <div
+            className='absolute top-0 w-full h-full bg-gray-900'
+            style={{
+              backgroundImage:
+                "url('https://blog.ipleaders.in/wp-content/uploads/2019/08/SOC-voting-image-TEXTLESS-800x450.jpg')",
+              backgroundSize: 'cover',
+            }}
+          ></div>
           <div className='container mx-auto px-4 h-full'>
             <div className='flex content-center items-center justify-center h-full'>
               <div className='w-full lg:w-4/12 px-4'>
@@ -378,7 +383,9 @@ const RegisterVoter = () => {
                   </div>
                   <div className='flex-auto px-4 lg:px-10 py-10 pt-0'>
                     <form>
-                      <h1>Face Registration</h1>
+                      <div class='flex justify-center pb-5 text-blue-900'>
+                        <h1 class='text-2xl font-bold'>Face Recognition</h1>
+                      </div>
                       <div className='relative w-full mb-3'>
                         <label
                           className='block uppercase text-gray-700 text-xs font-bold mb-2'
@@ -444,7 +451,7 @@ const RegisterVoter = () => {
                         <button
                           type='button'
                           style={{ transition: 'all .15s ease' }}
-                          className='bg-gray-900 text-white hover:bg-orange-600 text-sm font-bold uppercase px-6 py-3  rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mt-1 w-full'
+                          className='bg-blue-900 text-white hover:bg-orange-600 text-sm font-bold uppercase px-6 py-3  rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mt-1 w-full'
                           onClick={registerFace}
                         >
                           Register Face
@@ -458,7 +465,7 @@ const RegisterVoter = () => {
                           <button
                             type='button'
                             style={{ transition: 'all .15s ease' }}
-                            className='bg-gray-900 text-white hover:bg-orange-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mt-1 w-full'
+                            className='bg-blue-900 text-white hover:bg-orange-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mt-1 w-full'
                             onClick={handleLogin}
                           >
                             Login
@@ -470,7 +477,7 @@ const RegisterVoter = () => {
                         <button
                           type='button'
                           style={{ transition: 'all .15s ease' }}
-                          className='bg-gray-900 text-white hover:bg-orange-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
+                          className='bg-blue-900 text-white hover:bg-orange-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
                           onClick={startVideo}
                         >
                           Start Video
@@ -478,7 +485,7 @@ const RegisterVoter = () => {
                         <button
                           type='button'
                           style={{ transition: 'all .15s ease' }}
-                          className='bg-gray-900 text-white hover:bg-orange-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
+                          className='bg-blue-900 text-white hover:bg-orange-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
                           onClick={handleLogin}
                         >
                           Login
